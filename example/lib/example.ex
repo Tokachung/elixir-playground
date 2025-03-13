@@ -1,13 +1,14 @@
 defmodule Example do
+  use Application
+  alias UUID
+
+  # args describes data passed to the parameter. the underscore is a placeholder for the data to mute the warnings
+  def start(_type, _args) do
+    IO.puts(UUID.uuid4())
+    Supervisor.start_link([], strategy: :one_for_one) # A supervisor is a process that supervises other processes
+  end
 
   def hello do
-    :world # An interactive session will show this. but this won't if the file is run directly
-    IO.puts(:world) # this wills show up if the file is run direclty
-
+    :world
   end
 end
-
-Example.hello() # Any code here is only executed at compile time, not runtime
-
-# mix run -e "code" <-- inline execution
-# mix run <- compiles, and then runs the code. consequent runs will not recompile unless there are changes

@@ -14,14 +14,16 @@ defmodule Example.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: { Example, []},
+      mod: { Example, []}, #  Specify the module that will be used to start the application
       extra_applications: [:logger]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
+  # To install a dependency, run "mix deps.get", then "mix deps.compile"
   defp deps do
     [
+      {:uuid, "~> 1.1"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
