@@ -8,11 +8,19 @@ defmodule Example do
 
   def main do
     correct = :rand.uniform(10) - 1
-    guess = IO.gets("Guess a number between 0 and 10: ") |> String.trim() |> String.to_integer()
-    if guess == correct do
-      IO.puts("You guessed correctly!")
-    else
-      IO.puts("You guessed incorrectly!, the correct number was #{correct}")
+    IO.inspect(correct)
+    guess = IO.gets("Guess a number between 0 and 10: ") |> String.trim() |> Integer.parse()
+    IO.inspect(guess)
+
+    case guess do
+      {result, _} -> IO.puts("parse succesful #{result}")
+      if result === correct do
+        IO.puts("You guessed correctly!")
+      else
+        IO.puts("You guessed wrong!")
+      end
+
+      :error -> IO.puts("parse failed")
     end
   end
 end
