@@ -1,4 +1,5 @@
 defmodule Example do
+  require Integer
   use Application
 
   def start(_type, _args) do
@@ -6,21 +7,28 @@ defmodule Example do
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
-  def main do
-    correct = :rand.uniform(10) - 1
-    IO.inspect(correct)
-    guess = IO.gets("Guess a number between 0 and 10: ") |> String.trim() |> Integer.parse()
-    IO.inspect(guess)
-
-    case guess do
-      {result, _} -> IO.puts("parse succesful #{result}")
-      if result === correct do
-        IO.puts("You guessed correctly!")
-      else
-        IO.puts("You guessed wrong!")
-      end
-
-      :error -> IO.puts("parse failed")
-    end
+  def sum_and_average(numbers) do
+    sum = Enum.sum(numbers)
+    average = sum / Enum.count(numbers)
+    {sum, average}
   end
+
+  def print_numbers(numbers) do
+    numbers |> Enum.join(" ") |> IO.puts() # The |> operator is used to pass the result of the left-hand side to the right-hand side to chain functions
+  end
+
+  def get_numbers_from_user do
+    IO.puts("Enter a list of numbers separated by spaces: ")
+    user_input = IO.gets("") |> String.trim()
+    String.split(user_input, " ") |> Enum.map(&String.to_integer/1)
+  end
+
+  def main do
+    numbers = get_numbers_from_user()
+    IO.inspect(sum_and_average(numbers))
+    {sum, average} = sum_and_average(numbers)
+    IO.puts("Sum: #{sum}, average: #{average}")
+  end
+
+
 end
