@@ -1,3 +1,14 @@
+# Define a struct for the Membership module
+defmodule Membership do
+  defstruct [:type, :price]
+end
+
+# Define a struct for the User module
+defmodule User do
+  defstruct [:name, :membership]
+end
+
+
 defmodule Example do
   use Application
 
@@ -8,25 +19,20 @@ defmodule Example do
   end
 
   def main do
-    memberships = {:bronze, :silver, :gold}
-    memberships = Tuple.insert_at(memberships, 3, :platinum)
-    IO.inspect(memberships)
-
-    prices = {5, 10, 15, 20}
-    avg = Tuple.sum(prices) / tuple_size(prices)
-    IO.puts(avg)
-
-    IO.puts("Average prices from #{elem(memberships, 0)} #{elem(memberships, 1)} #{elem(memberships, 2)} #{elem(memberships, 3)} is #{avg}")
+    gold_membership = %Membership{type: :gold, price: 100}
+    silver_membership = %Membership{type: :silver, price: 80}
+    bronze_membership = %Membership{type: :bronze, price: 50}
+    none_membership = %Membership{type: :none, price: 0}
 
     users = [
-      {"Shawn", :platinum},
-      {"Beatrice", :platinum},
-      {"Jimmy", :bronze},
-      {"Tianren", :gold}
+      %User{name: "Shawn", membership: gold_membership},
+      %User{name: "John", membership: silver_membership},
+      %User{name: "Jane", membership: bronze_membership},
+      %User{name: "Alice", membership: none_membership}
     ]
 
-    Enum.each(users, fn {name, membership} ->
-      IO.puts("#{name} has a #{membership} membership")
+    Enum.each(users, fn %User{name: name, membership: membership} ->
+      IO.puts("#{name} has a #{membership.type} membership, paying #{membership.price} dollars a month.")
     end)
 
   end
