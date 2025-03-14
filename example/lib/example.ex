@@ -11,11 +11,10 @@ defmodule Example do
     name = "Caleb";
     status = Enum.random([:gold, :silver, :bronze, :banned])
 
-    if status === :gold do
-      IO.puts("Welcome to the Gold level, #{name}!")
-
-    else
-      IO.puts("You are not Gold, #{name}!")
+    case status do
+      :gold -> IO.puts("Welcome to the fancy lounge, #{name}")
+      :banned -> IO.puts("You are banned, #{name}")
+      _ -> IO.puts("You are a peasant, #{name}")
     end
   end
 end
