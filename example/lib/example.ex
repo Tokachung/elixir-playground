@@ -8,20 +8,27 @@ defmodule Example do
   end
 
   def main do
-    time = DateTime.new!(Date.new!(2026, 1, 1), Time.new!(0,0,0,0), "Etc/UTC")
-    time_till = DateTime.diff(time, DateTime.utc_now())
-    IO.puts(time_till)
+    memberships = {:bronze, :silver, :gold}
+    memberships = Tuple.insert_at(memberships, 3, :platinum)
+    IO.inspect(memberships)
 
-    days = div(time_till, 86400) # Calculate days
-    IO.puts(days)
-    hours = div(rem(time_till, 86400), 60 * 60) #
-    IO.puts(hours)
-    mins = div(rem(time_till, 3600), 60)
-    IO.puts(mins)
-    seconds = rem(time_till, 60)
-    IO.puts(seconds)
+    prices = {5, 10, 15, 20}
+    avg = Tuple.sum(prices) / tuple_size(prices)
+    IO.puts(avg)
 
-    IO.puts("Time until new year: #{days} days, #{hours} hours, #{mins} minutes, #{seconds} seconds")
+    IO.puts("Average prices from #{elem(memberships, 0)} #{elem(memberships, 1)} #{elem(memberships, 2)} #{elem(memberships, 3)} is #{avg}")
+
+    users = [
+      {"Shawn", :platinum},
+      {"Beatrice", :platinum},
+      {"Jimmy", :bronze},
+      {"Tianren", :gold}
+    ]
+
+    Enum.each(users, fn {name, membership} ->
+      IO.puts("#{name} has a #{membership} membership")
+    end)
+
   end
 end
 
