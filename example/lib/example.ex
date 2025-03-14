@@ -1,8 +1,6 @@
 defmodule Example do
   use Application
 
-  @x 5
-
   # args describes data passed to the parameter. the underscore is a placeholder for the data to mute the warnings
   def start(_type, _args) do
     Example.main() # Call the main function
@@ -10,7 +8,15 @@ defmodule Example do
   end
 
   def main do
-    IO.puts(@x)
+    name = "Caleb";
+    status = Enum.random([:gold, :silver, :bronze, :banned])
+
+    if status === :gold do
+      IO.puts("Welcome to the Gold level, #{name}!")
+
+    else
+      IO.puts("You are not Gold, #{name}!")
+    end
   end
 end
 
